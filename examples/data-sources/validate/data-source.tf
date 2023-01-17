@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    schemavalidator = {
-      source  = "terraform.local/cloudandthings/schemavalidator"
-      version = "1.0.0"
-    }
-  }
-}
-
 data "schemavalidator_validate" "test" {
   document = jsonencode({ "test" = "test" })
 
@@ -19,6 +10,11 @@ data "schemavalidator_validate" "test" {
   })
 }
 
-output "sch" {
+data "schemavalidator_validate" "from_fs" {
+  document = file("./document.json")
+  schema   = file("./schema.json")
+}
+
+output "validated" {
   value = data.schemavalidator_validate.test.validated
 }
