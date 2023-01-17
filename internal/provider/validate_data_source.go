@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/santhosh-tekuri/jsonschema/v5"
+	_ "github.com/santhosh-tekuri/jsonschema/v5/httploader"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
@@ -40,7 +41,7 @@ func (d *ValidateDataSource) Metadata(ctx context.Context, req datasource.Metada
 func (d *ValidateDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "Validate a json document against a [json-schema](https://json-schema.org/) file",
+		MarkdownDescription: "Validate a json document against a [json-schema](https://json-schema.org/) schema file.",
 
 		Attributes: map[string]schema.Attribute{
 			"document": schema.StringAttribute{

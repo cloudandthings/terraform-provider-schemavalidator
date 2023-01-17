@@ -1,0 +1,34 @@
+---
+page_title: "{{.Name}} {{.Type}} - {{.ProviderName}}"
+subcategory: ""
+description: |-
+{{ .Description | plainmarkdown | trimspace | prefixlines "  " }}
+---
+
+# {{.Name}} ({{.Type}})
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+The document and schema arguments only accept strings in json format. Any object of format that can be
+converted to json using the Terraform built in [`jsonencode`](https://developer.hashicorp.com/terraform/language/functions/jsonencode) function
+will work.    
+    
+These objects can include Terraform `local` variables, input variables, files loaded from your file system or `outputs` from modules and other workspaces.   
+    
+
+{{ tffile "examples/data-sources/validate/data-source.tf" }}
+
+## Usage with HTTP Provider
+
+It is common for schemas to be published and made publicly referencable. Instead of building the funtionality
+to fetch schemas from URLs, the [HTTP provider](https://registry.terraform.io/providers/hashicorp/http/latest)
+can be used to fetch the schema (and document in this case) from wherever it is hosted.     
+     
+This example also converts a `yaml` document to `json` format to make it compatible with the provider.   
+   
+
+{{ tffile "examples/data-sources/validate/http-links.tf" }}
+
+{{ .SchemaMarkdown | trimspace }}
